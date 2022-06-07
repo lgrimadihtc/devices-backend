@@ -9,22 +9,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
 @Entity
 public class LoadProcess {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private LocalDateTime initDate;
 	private LocalDateTime endDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "DEVICE_ID")
 	private Device device;
-	
+
 	private Long metricQuantity;
-	
+	private Long totalMetric;
 	private String status;
 
 	public Long getId() {
@@ -78,26 +79,27 @@ public class LoadProcess {
 	public LoadProcess(Device device) {
 		super();
 		this.device = device;
-		this.initDate=LocalDateTime.now();
-		this.status="Processing";
-		this.metricQuantity=0L;
+		this.initDate = LocalDateTime.now();
+		this.status = "Processing";
+		this.metricQuantity = 0L;
 	}
-	
-
 
 	@Transient
 	public String getDeviceName() {
-		
+
 		return device.getDeviceId();
 	}
 
 	public LoadProcess() {
-	
+
 	}
-	
-	
-	
-	
-	
+
+	public Long getTotalMetric() {
+		return totalMetric;
+	}
+
+	public void setTotalMetric(Long totalMetric) {
+		this.totalMetric = totalMetric;
+	}
 
 }

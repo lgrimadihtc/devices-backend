@@ -49,11 +49,14 @@ public class LoadServiceCompressor implements LoadService {
 			Stream<String> lines = null;
 			try {
 				lines = Files.lines(path);
+				loadprocess.setTotalMetric(lines.count()-1);
+				this.lpRepository.save(loadprocess);
+				lines = Files.lines(path);
 			} catch (IOException e1) {
 
 				e1.printStackTrace();
 			}
-
+			
 			lines.parallel().forEach(d ->
 
 			{
@@ -84,7 +87,7 @@ public class LoadServiceCompressor implements LoadService {
 			this.lpRepository.save(loadprocess);
 			metricDeviceRepository.saveAll(metricList);
 			loadprocess.setStatus("Conciliating");
-			ps.Process(loadprocess, idDevice);
+			ps.process(loadprocess, idDevice);
 		}).start();
 
 		return loadprocess;

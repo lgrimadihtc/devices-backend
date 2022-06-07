@@ -16,6 +16,7 @@ import com.guidewheel.metric.model.LoadProcess;
 import com.guidewheel.metric.repository.DailyStatusSumaryRepository;
 import com.guidewheel.metric.repository.DeviceRepository;
 import com.guidewheel.metric.repository.DeviceStatusRepository;
+import com.guidewheel.metric.repository.LoadProcessRepository;
 import com.guidewheel.metric.repository.MetricDeviceRepository;
 import com.guidewheel.metric.repository.MetricRepository;
 
@@ -35,8 +36,11 @@ public class ProcessService {
 
 	@Autowired
 	private DeviceRepository devicesRepository;
+	
+	@Autowired
+	private LoadProcessRepository loadProcessRepository;
 
-	public void Process(LoadProcess loadProcess, String idDevice) {
+	public void process(LoadProcess loadProcess, String idDevice) {
 
 		Device device = this.devicesRepository.findById(idDevice).get();
 		List<DeviceStatus> listStatus = this.deviceStatusRepository.findByDeviceDeviceIdOrderByMinValAsc(idDevice);
@@ -50,7 +54,6 @@ public class ProcessService {
 			for (int i = 0; i < listStatus.size(); i++) {
 
 				if (!listStatus.get(i).getNoMetricStatus()) {
-					System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 					Long val = this.metricDeviceRepository.statusCount(idDevice, loadProcess.getId(),
 							LocalDateTime.of(initDate, LocalTime.ofSecondOfDay(0)),
 							LocalDateTime.of(initDate, LocalTime.ofSecondOfDay(86399)),
@@ -64,7 +67,6 @@ public class ProcessService {
 									device, listStatus.get(i), val, val * device.getMetricEvery(), initDate));
 					dailyTotal = dailyTotal + val;
 				} else {
-					System.out.println("####################################");
 					Long offMetric = device.getExpectedMetricByDay() - dailyTotal;
 					offMetric=offMetric<0?0L:offMetric;
 					dailyStatusSumaryRepository.save(new DailyStatusSumary(
@@ -76,6 +78,11 @@ public class ProcessService {
 			initDate = initDate.plusDays(1);
 		} while (initDate.isBefore(endDate));
 
+		
+	
+		loadProcess.setEndDate(LocalDateTime.now());
+		loadProcess.setStatus("finished");
+		loadProcessRepository.save(loadProcess);
 	}
 
 }

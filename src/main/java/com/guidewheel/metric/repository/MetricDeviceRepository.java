@@ -35,4 +35,6 @@ public interface MetricDeviceRepository extends PagingAndSortingRepository<Metri
 			@Param("metricId") String metricId
 			);
 	
+	 
+	
 }
