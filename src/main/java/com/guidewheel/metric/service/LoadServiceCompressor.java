@@ -41,7 +41,7 @@ public class LoadServiceCompressor implements LoadService {
 
 	public LoadProcess load(String pathFile, String idDevice) throws Exception {
 
-		Device device = this.deviceRepository.findById(idDevice).orElseThrow();
+		Device device = this.deviceRepository.findById(idDevice).get();
 		LoadProcess loadprocess = lpRepository.save(new LoadProcess(device));
 		new Thread(() -> {
 			Path path = Paths.get(pathFile);
