@@ -62,7 +62,7 @@ public class LoadServiceCompressor implements LoadService {
 			{
 				try {
 
-					// System.out.println(d);
+				
 					String[] val = d.split(",");
 
 					Optional<Metric> metric = metricRepository.findById(val[1]);
