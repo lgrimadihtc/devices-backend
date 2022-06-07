@@ -16,6 +16,7 @@ public class Statistics {
 		this.totalMetricDevices = totalMetricDevices;
 		this.totalDaily = totalDaily;
 	}
+	
 
 	public Long getTotalMetricDevices() {
 		return totalMetricDevices;
