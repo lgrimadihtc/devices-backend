@@ -4,20 +4,38 @@ spring:
       max-file-size: 100000KB
       max-request-size: 100000KB
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:mem:TEST
-    driver-class-name: org.h2.Driver
-    username: username
-    password: password
-    hikari:
-      idle-timeout: 10000
+    url: jdbc:mariadb://lab02-db00006770.mdb0002865.db.skysql.net:5050/devices?createDatabaseIfNotExist=true&useSsl=true&serverSslCert=C:\Users\Grimaldi\Documents\workspace-spring-tool-suite-4-4.14.1.RELEASE\guidewheel\src\main\resources\skysql_chain.pem
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: DB00006770
+    password: VIeL2|PmtY0kR4IStPOMEAf
   jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
-        hbm2ddl:
-           auto: create
+        ddl-auto: create
         format_sql: false
+        dialect: org.hibernate.dialect.MariaDBDialect
     show-sql: false
 
-        
-        
+
+#5050 --user DB00006770 -p --ssl-ca ~/Downloads/skysql_chain.pem
+ #       
+# spring.datasource.url=jdbc:mariadb://localhost:3306/springbootdb
+#spring.datasource.username=root
+#spring.datasource.password=root
+#spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+#spring.jpa.hibernate.ddl-auto=create-drop
+#datasource:
+#    type: com.zaxxer.hikari.HikariDataSource
+
+#    url: jdbc:h2:mem:TEST
+#    driver-class-name: org.h2.Driver
+#   username: username
+#   password: password
+#    hikari:
+#     idle-timeout: 10000
+#
+#
+#
