@@ -4,7 +4,7 @@ spring:
       max-file-size: 100000KB
       max-request-size: 100000KB
   datasource:
-    url: jdbc:mariadb://lab02-db00006770.mdb0002865.db.skysql.net:5050/devices?createDatabaseIfNotExist=true&useSsl=true&serverSslCert=C:\Users\Grimaldi\Documents\workspace-spring-tool-suite-4-4.14.1.RELEASE\guidewheel\src\main\resources\skysql_chain.pem
+    url: jdbc:mariadb://lab02-db00006770.mdb0002865.db.skysql.net:5050/devices?createDatabaseIfNotExist=true&useSsl=true&serverSslCert=src\main\resources\skysql_chain.pem
     driver-class-name: org.mariadb.jdbc.Driver
     username: DB00006770
     password: VIeL2|PmtY0kR4IStPOMEAf
